@@ -188,7 +188,7 @@ final class BuiltInKnowledge {
             difficulty: 1, unitPrice: 5.0),
         Ingredient(name: "杏鲍菇", aliases: ["鸡腿菇","刺芹菇"], categoryId: mushroomId, imageName: "rectangle.fill",
             seasonMonths: [9,10,11,12,1], storageDays: 5, storageTips: "冷藏，纸袋包装",
-            nutritionHighlights: ["杏鲍菇多糖","膳食纤维","植物蛋白"], cookingTips: ["切厚片煎至两面金黄像"素鲍鱼"","手撕比切更入味","干煸杏鲍菇口感像肉"],
+            nutritionHighlights: ["杏鲍菇多糖","膳食纤维","植物蛋白"], cookingTips: ["切厚片煎至两面金黄像「素鲍鱼」","手撕比切更入味","干煸杏鲍菇口感像肉"],
             difficulty: 1, unitPrice: 7.0),
         Ingredient(name: "茶树菇", aliases: ["茶薪菇","柱状田头菇"], categoryId: mushroomId, imageName: "line.diagonal",
             seasonMonths: [9,10,11,12,1,2], storageDays: 5, storageTips: "鲜菇冷藏；干菇密封保存",

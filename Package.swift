@@ -4,8 +4,7 @@ import PackageDescription
 let package = Package(
     name: "ZhiWei",
     platforms: [
-        .iOS(.v17),
-        .macOS(.v14)
+        .iOS(.v17)
     ],
     products: [
         .library(name: "ZhiWei", targets: ["ZhiWei"]),
@@ -14,7 +13,8 @@ let package = Package(
     targets: [
         .target(
             name: "ZhiWei",
-            path: "Sources/ZhiWei"
+            path: "Sources/ZhiWei",
+            exclude: ["App/ZhiWeiApp.swift"]
         ),
         .testTarget(
             name: "ZhiWeiTests",

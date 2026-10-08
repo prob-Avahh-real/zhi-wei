@@ -17,13 +17,6 @@ extension Color {
 
 // MARK: - App Entry
 
-@main
-struct 知味App: App {
-    var body: some Scene {
-        WindowGroup { ContentView() }
-    }
-}
-
 struct ContentView: View {
     @StateObject private var vm = KnowledgeViewModel()
 
@@ -41,7 +34,7 @@ struct ContentView: View {
             NavigationStack { ProfileView(vm: vm) }
                 .tabItem { Label("我的", systemImage: "person.fill") }
         }
-        .tint(.zsGreen)
+        .tint(Color.zsGreen)
     }
 }
 
@@ -92,7 +85,7 @@ struct HomeView: View {
                 Image(systemName: "camera.viewfinder")
                     .font(.title3).foregroundStyle(.white)
                     .frame(width: 44, height: 44)
-                    .background(.zsGreen).clipShape(RoundedRectangle(cornerRadius: 12))
+                    .background(Color.zsGreen).clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
     }
@@ -114,9 +107,9 @@ struct HomeView: View {
                             NavigationLink(destination: IngredientDetailView(vm: vm, ingredient: ingredient)) {
                                 VStack(spacing: 6) {
                                     Image(systemName: ingredient.imageName ?? "circle.fill")
-                                        .font(.title2).foregroundStyle(.zsGreen)
+                                        .font(.title2).foregroundStyle(Color.zsGreen)
                                         .frame(width: 44, height: 44)
-                                        .background(.zsGreen.opacity(0.1))
+                                        .background(Color.zsGreen.opacity(0.1))
                                         .clipShape(Circle())
                                     Text(ingredient.name).font(.caption2).foregroundStyle(.primary)
                                 }
@@ -159,7 +152,7 @@ struct HomeView: View {
                 NavigationLink(destination: IngredientDetailView(vm: vm, ingredient: ing)) {
                     HStack(spacing: 12) {
                         Image(systemName: ing.imageName ?? "circle.fill")
-                            .foregroundStyle(.zsGreen).frame(width: 24)
+                            .foregroundStyle(Color.zsGreen).frame(width: 24)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(ing.name).font(.subheadline).fontWeight(.medium).foregroundStyle(.primary)
                             Text("当季 · \(ing.nutritionHighlights.prefix(2).joined(separator: " · "))")
@@ -203,7 +196,7 @@ struct BrowseView: View {
                         vm.showInSeasonOnly.toggle()
                     } label: {
                         Image(systemName: vm.showInSeasonOnly ? "leaf.fill" : "leaf")
-                            .foregroundStyle(vm.showInSeasonOnly ? .zsGreen : .secondary)
+                            .foregroundStyle(vm.showInSeasonOnly ? Color.zsGreen : .secondary)
                     }
                 }
                 .padding(.horizontal, 16).padding(.vertical, 10)
@@ -217,14 +210,14 @@ struct BrowseView: View {
                                     .font(.title3)
                                     .foregroundStyle(
                                         (vm.flattenedCategories.first { $0.id == ingredient.categoryId })
-                                            .map { Color(hex: $0.color) } ?? .zsGreen
+                                            .map { Color(hex: $0.color) } ?? Color.zsGreen
                                     )
                                 VStack(alignment: .leading, spacing: 2) {
                                     HStack(spacing: 4) {
                                         Text(ingredient.name).font(.subheadline).fontWeight(.medium)
                                         if ingredient.isInSeasonNow {
-                                            Text("当季").font(.caption2).foregroundStyle(.zsGreen).padding(.horizontal, 4).padding(.vertical, 1)
-                                                .background(.zsGreen.opacity(0.1)).clipShape(Capsule())
+                                            Text("当季").font(.caption2).foregroundStyle(Color.zsGreen).padding(.horizontal, 4).padding(.vertical, 1)
+                                                .background(Color.zsGreen.opacity(0.1)).clipShape(Capsule())
                                         }
                                     }
                                     if let p = ingredient.unitPrice {
@@ -240,7 +233,7 @@ struct BrowseView: View {
                             } label: {
                                 Label("加购", systemImage: "cart.badge.plus")
                             }
-                            .tint(.zsGreen)
+                            .tint(Color.zsGreen)
                         }
                     }
                 }
@@ -318,7 +311,7 @@ struct IngredientDetailView: View {
                 Button {
                     vm.addToShoppingList(ingredient.name, amount: nil)
                 } label: {
-                    Image(systemName: "cart.badge.plus").foregroundStyle(.zsGreen)
+                    Image(systemName: "cart.badge.plus").foregroundStyle(Color.zsGreen)
                 }
             }
         }
@@ -327,9 +320,9 @@ struct IngredientDetailView: View {
     private var headerSection: some View {
         VStack(spacing: 12) {
             Image(systemName: ingredient.imageName ?? "circle.fill")
-                .font(.system(size: 56)).foregroundStyle(.zsGreen)
+                .font(.system(size: 56)).foregroundStyle(Color.zsGreen)
                 .frame(width: 100, height: 100)
-                .background(.zsGreen.opacity(0.1)).clipShape(Circle())
+                .background(Color.zsGreen.opacity(0.1)).clipShape(Circle())
 
             Text(ingredient.name).font(.largeTitle).fontWeight(.bold)
             if !ingredient.aliases.isEmpty {
@@ -339,7 +332,7 @@ struct IngredientDetailView: View {
 
             HStack(spacing: 16) {
                 Label(ingredient.isInSeasonNow ? "当季" : "四季", systemImage: ingredient.isInSeasonNow ? "leaf.fill" : "calendar")
-                    .font(.caption).foregroundStyle(ingredient.isInSeasonNow ? .zsGreen : .secondary)
+                    .font(.caption).foregroundStyle(ingredient.isInSeasonNow ? Color.zsGreen : .secondary)
                 Label("\(ingredient.storageDays ?? 0)天", systemImage: "clock")
                     .font(.caption).foregroundStyle(.secondary)
                 if let price = ingredient.unitPrice {
@@ -440,7 +433,7 @@ struct IngredientDetailView: View {
                     .font(.caption).fontWeight(.medium)
                 }
             } else {
-                Button("+ 添加笔记") { showNoteField = true }.font(.caption).foregroundStyle(.zsGreen)
+                Button("+ 添加笔记") { showNoteField = true }.font(.caption).foregroundStyle(Color.zsGreen)
             }
             ForEach(notes) { note in
                 VStack(alignment: .leading, spacing: 2) {
@@ -555,7 +548,7 @@ struct ShoppingListView: View {
         HStack(spacing: 12) {
             Button { vm.toggleShoppingItem(item.id) } label: {
                 Image(systemName: item.isChecked ? "checkmark.circle.fill" : "circle")
-                    .font(.title3).foregroundStyle(item.isChecked ? .zsGreen : .secondary)
+                    .font(.title3).foregroundStyle(item.isChecked ? Color.zsGreen : .secondary)
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.ingredientName)
@@ -599,7 +592,7 @@ struct IdentifyView: View {
                         }
                     } label: {
                         Image(systemName: "magnifyingglass.circle.fill")
-                            .font(.title2).foregroundStyle(.zsGreen)
+                            .font(.title2).foregroundStyle(Color.zsGreen)
                     }
                     .disabled(inputText.isEmpty)
                 }
@@ -609,7 +602,7 @@ struct IdentifyView: View {
                 if hasSearched {
                     List(results) { ing in
                         NavigationLink(destination: IngredientDetailView(vm: vm, ingredient: ing)) {
-                            Label(ing.name, systemImage: "leaf.fill").foregroundStyle(.zsGreen)
+                            Label(ing.name, systemImage: "leaf.fill").foregroundStyle(Color.zsGreen)
                         }
                     }
                     .listStyle(.plain)
@@ -643,7 +636,7 @@ struct ProfileView: View {
                     }
                 }
                 HStack {
-                    Image(systemName: "plus.circle.fill").foregroundStyle(.zsGreen)
+                    Image(systemName: "plus.circle.fill").foregroundStyle(Color.zsGreen)
                     TextField("新建收藏夹", text: $collectionName)
                         .onSubmit {
                             guard !collectionName.isEmpty else { return }
@@ -655,7 +648,7 @@ struct ProfileView: View {
 
             Section("自定义食材 (\(vm.customIngredients.count))") {
                 Button { showAddIngredient = true } label: {
-                    Label("添加自定义食材", systemImage: "plus.circle.fill").foregroundStyle(.zsGreen)
+                    Label("添加自定义食材", systemImage: "plus.circle.fill").foregroundStyle(Color.zsGreen)
                 }
                 ForEach(vm.customIngredients) { ing in
                     NavigationLink(destination: IngredientDetailView(vm: vm, ingredient: ing)) {
@@ -729,8 +722,8 @@ struct AddIngredientView: View {
                             name: name,
                             aliases: alias.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) },
                             categoryId: cid,
-                            cookingTips: tips.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) },
                             storageTips: storage.isEmpty ? nil : storage,
+                            cookingTips: tips.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) },
                             isCommon: false
                         )
                         vm.addCustomIngredient(ing)

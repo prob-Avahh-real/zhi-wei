@@ -165,7 +165,7 @@ final class IngredientClassifier {
     func classify(text: String, against ingredients: [Ingredient]) -> [Ingredient] {
         let lower = text.lowercased()
         return ingredients.filter { ing in
-            [ing.name] + ing.aliases contains(where: { lower.contains($0.lowercased()) })
+            ([ing.name] + ing.aliases).contains(where: { lower.contains($0.lowercased()) })
         }
     }
 }

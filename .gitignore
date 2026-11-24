@@ -50,3 +50,20 @@ credentials.json
 *.log
 Thumbs.db
 
+
+# Hygiene & build artifacts
+!.env.sample
+.npm-cache/
+.build/
+android/app/build/
+**/android/app/build/
+android/.gradle/
+**/android/.gradle/
+shared/build/
+**/shared/build/
+composeApp/build/
+**/composeApp/build/
+.venv/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
